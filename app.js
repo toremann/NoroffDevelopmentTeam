@@ -41,8 +41,8 @@ app.get('/', async (req, res) => {
 app.get('/ISBN/:id', async (req, res) => {
   try {
     const response = await axios.get(booksAPIparams + req.params.id);
-    // console.log(`Response for ISBN: ${req.params.id}`)
-    // console.log(`Book title: ${response.data.title}`)
+    console.log(`Response for ISBN: ${req.params.id}`)
+    console.log(`Book title: ${response.data.title}`)
     res.send(`Title for ISBN: ${req.params.id}\n\n Book title: ${response.data.title}`);
   } catch (err) {
     console.log(`No book with that ISBN number`);
