@@ -6,7 +6,7 @@ require('dotenv').config();
 
 // Initialize Express
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const booksAPI = 'https://openlibrary.org/books/OL82586W.json';
 const booksAPIparams = 'https://openlibrary.org/books/'
 
