@@ -7,8 +7,7 @@ require('dotenv').config();
 // Initialize Express
 const app = express();
 const port = process.env.PORT || 3000;
-const booksAPI = 'https://openlibrary.org/books/OL82586W.json';
-const booksAPIparams = 'https://openlibrary.org/books/'
+const openlibraryAPI = 'https://openlibrary.org/isbn/'
 
 // Database URI from MongoDB Atlas
 const dbURI = process.env.MongoURI;
@@ -26,26 +25,16 @@ mongoose
   })
   .catch((err) => console.log('Could not connect to database'));
 
-// Get book using axios
-app.get('/', async (req, res) => {
-  try {
-    const response = await axios.get(booksAPI);
-    console.log("Request", req.headers)
-    // res.json(response.data);
-    console.log(`Book title: ${response.data.title}`);
-  } catch (err) {
-    console.log(err);
-  }
-});
 
+// ISBN search using 
 app.get('/ISBN/:id', async (req, res) => {
   try {
-    const response = await axios.get(booksAPIparams + req.params.id);
+    const response = await axios.get(openlibraryAPI + req.params.id);
     console.log(`Response for ISBN: ${req.params.id}`)
-    console.log(`Book title: ${response.data.title}`)
-    res.send(`Title for ISBN: ${req.params.id}\n\n Book title: ${response.data.title}`);
+    console.log(response.data)
+    res.send(response.data)
   } catch (err) {
-    console.log(`No book with that ISBN number`);
+    console.log(`No book with that ISBN number` + err);
     res.status(500).send(`No book with that ISBN number`)
   }
 })
