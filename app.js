@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const axios = require('axios');
+const bodyParser= require('body-parser')
+const cors = require('cors')
 
 require('dotenv').config();
 
@@ -25,6 +27,9 @@ mongoose
   })
   .catch((err) => console.log('Could not connect to database'));
 
+app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use(cors())
 
 // ISBN search using 
 app.get('/ISBN/:id', async (req, res) => {
